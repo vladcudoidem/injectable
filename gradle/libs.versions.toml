@@ -1,0 +1,19 @@
+[versions]
+
+kotlin = "2.1.21"
+compose = "1.8.2"
+
+[libraries]
+
+kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlin-compiler = { module = "org.jetbrains.kotlin:kotlin-compiler", version.ref = "kotlin" }
+kotlin-compilerEmbeddable = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }
+tschuchortdev-kotlinCompileTesting = { module = "com.github.tschuchortdev:kotlin-compile-testing", version = "1.5.0" }
+compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
+
+[plugins]
+
+spotless = { id = "com.diffplug.spotless", version = "6.25.0" }
+buildConfig = { id = "com.github.gmazzo.buildconfig", version = "5.6.5" }

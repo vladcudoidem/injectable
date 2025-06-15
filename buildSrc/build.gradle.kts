@@ -6,23 +6,24 @@ dependencies {
     // "libs" in parentheses to avoid IDE highlight error
     implementation(files((libs).javaClass.superclass.protectionDomain.codeSource.location))
 
-    implementation(libs.plugins.spotless.asModuleDependency())
+    implementation(libs.plugins.spotless.asModuleDependency("-plugin-gradle", true))
+    implementation(libs.plugins.androidGradle.asModuleDependency(".gradle.plugin"))
+    implementation(libs.plugins.kotlinAndroid.asModuleDependency(".gradle.plugin"))
 }
 
-/**
- * Converts a [PluginDependency] into a String-based module dependency. If [reversed] is set to
- * `true`, the module name is inferred to be `...-gradle-plugin` instead of `...-plugin-gradle`.
- */
-private fun Provider<PluginDependency>.asModuleDependency(reversed: Boolean = false): String {
+// Converts a plugin dependency to a module dependency.
+private fun Provider<PluginDependency>.asModuleDependency(
+    artifactIdSuffix: String,
+    trimArtifactId: Boolean = false,
+): String {
     val group = get().pluginId
-    val simplePluginName = group.split(".").last()
-    val artifactSuffix =
-        if (reversed) {
-            "-gradle-plugin"
-        } else {
-            "-plugin-gradle"
-        }
     val version = get().version.requiredVersion
+    val artifactIdPrefix =
+        if (!trimArtifactId) {
+            group
+        } else {
+            group.substringAfterLast(".")
+        }
 
-    return "$group:${simplePluginName + artifactSuffix}:$version"
+    return "$group:${artifactIdPrefix + artifactIdSuffix}:$version"
 }

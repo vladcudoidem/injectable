@@ -7,6 +7,7 @@ import com.vladvamos.injectable.representation.CallStack
 internal class ComposableCallStackModifier(val callStack: CallStack) :
     ModifierNodeElement<ComposableCallStackModifierNode>() {
 
+    // Todo: change name
     var addToSemantics = true
 
     val currentModifierState: ComposableCallStackModifierState
@@ -27,7 +28,6 @@ internal class ComposableCallStackModifier(val callStack: CallStack) :
 
     override fun equals(other: Any?): Boolean {
         if (other !is ComposableCallStackModifier) return false
-        // Todo: implement equals() for classes.
         return currentModifierState == other.currentModifierState
     }
 

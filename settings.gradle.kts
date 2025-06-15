@@ -22,6 +22,7 @@ plugins {
 }
 
 include(":injectable")
+include(":injectable-testing")
 include(":injectable-compiler-plugin")
 include(":injectable-gradle-plugin")
 

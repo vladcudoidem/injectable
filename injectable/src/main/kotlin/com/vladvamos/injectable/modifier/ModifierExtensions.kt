@@ -2,43 +2,36 @@ package com.vladvamos.injectable.modifier
 
 import android.annotation.SuppressLint
 import androidx.compose.ui.Modifier
-import com.vladvamos.injectable.representation.Function
 import com.vladvamos.injectable.representation.FunctionCall
-
-// Todo: remove overload
-public fun Modifier.registerCall(fqName: String): Modifier {
-    val function =
-        Function(
-            fqName = fqName,
-            annotations = null,
-            coordinates = null,
-        )
-
-    return registerCall(
-        FunctionCall(
-            coordinates = null,
-            function = function,
-        )
-    )
-}
 
 public fun Modifier.registerCall(call: FunctionCall): Modifier {
     val lastCallStackModifier = getLastCallStackModifier()
-    return if (lastCallStackModifier != null) {
+    val existsCallStackModifier = lastCallStackModifier != null
+
+    if (existsCallStackModifier) {
         lastCallStackModifier.addToSemantics = false
-        this then ComposableCallStackModifier(callStack = lastCallStackModifier.callStack + call)
-    } else {
-        this then ComposableCallStackModifier(listOf(call))
     }
+    val currentCallStack =
+        if (existsCallStackModifier) {
+            lastCallStackModifier.callStack + call
+        } else {
+            listOf(call)
+        }
+
+    return this then ComposableCallStackModifier(currentCallStack)
 }
 
 @SuppressLint("ModifierFactoryReturnType")
-private fun Modifier.getLastCallStackModifier(): ComposableCallStackModifier? {
+internal fun Modifier.getLastCallStackModifier(): ComposableCallStackModifier? {
     var lastModifier: ComposableCallStackModifier? = null
-    foldIn(Unit) { _, modifier ->
-        if (modifier is ComposableCallStackModifier) {
+    var lastModifierFound = false
+
+    // Abuse the folding operation to traverse the Modifier structure. Use `foldOut` to start at the
+    // last Modifier in the Modifier chain and get the first match.
+    foldOut(Unit) { modifier, _ ->
+        if (!lastModifierFound && modifier is ComposableCallStackModifier) {
             lastModifier = modifier
-            return@foldIn
+            lastModifierFound = true
         }
     }
 

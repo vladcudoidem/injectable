@@ -1,8 +1,6 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
     id("formatting-convention")
-    `maven-publish`
+    id("android-convention")
 }
 
 // Library version
@@ -11,37 +9,20 @@ version = "0.1.0"
 kotlin { explicitApi() }
 
 android {
-    namespace = "com.vladvamos.injectable"
-    compileSdk = 35
-
-    defaultConfig { minSdk = 24 }
-
-    compileOptions {
-        targetCompatibility = JavaVersion.VERSION_19
-        sourceCompatibility = JavaVersion.VERSION_19
-    }
-
-    kotlinOptions { jvmTarget = "19" }
-
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-            withJavadocJar()
+    sourceSets {
+        getByName("test") {
+            java.srcDirs("src/integrationTest/kotlin")
+            res.srcDirs("src/integrationTest/res")
+            manifest.srcFile("src/integrationTest/AndroidManifest.xml")
         }
-    }
-}
-
-afterEvaluate {
-    publishing {
-        publications { create<MavenPublication>("release") { from(components["release"]) } }
-
-        repositories { mavenLocal() }
     }
 }
 
 dependencies {
     implementation(libs.compose.ui)
     implementation(libs.compose.runtime)
+    implementation(libs.kotlin.reflect)
 
     testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotest.junit5)
 }

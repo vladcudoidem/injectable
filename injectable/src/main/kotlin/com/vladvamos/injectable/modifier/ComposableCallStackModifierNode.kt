@@ -4,7 +4,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.node.SemanticsModifierNode
 import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 import androidx.compose.ui.semantics.contentDescription
-import com.vladvamos.injectable.composableCallStack
+import com.vladvamos.injectable.semantics.composableCallStack
 
 internal class ComposableCallStackModifierNode(
     var modifierState: ComposableCallStackModifierState
@@ -14,7 +14,7 @@ internal class ComposableCallStackModifierNode(
         with(modifierState) {
             if (shouldAddToSemantics) {
                 // Todo: remove this.
-                val callStackString = callStack.joinToString(", ") { it.function?.fqName ?: "null" }
+                val callStackString = callStack.joinToString(", ")
                 contentDescription = "callStack=[$callStackString]"
 
                 composableCallStack = callStack

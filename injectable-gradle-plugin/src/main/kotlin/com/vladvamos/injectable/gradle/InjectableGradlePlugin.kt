@@ -11,8 +11,10 @@ import org.jetbrains.kotlin.gradle.plugin.SubpluginOption
 
 class InjectableGradlePlugin : KotlinCompilerPluginSupportPlugin {
 
-    // Todo: only apply for testing
-    override fun isApplicable(kotlinCompilation: KotlinCompilation<*>): Boolean = true
+    override fun isApplicable(kotlinCompilation: KotlinCompilation<*>): Boolean {
+        val isApplicable = kotlinCompilation.name.contains("debug", ignoreCase = true)
+        return isApplicable
+    }
 
     override fun getCompilerPluginId(): String = BuildConfig.COMPILER_PLUGIN_ID
 
@@ -45,7 +47,7 @@ class InjectableGradlePlugin : KotlinCompilerPluginSupportPlugin {
         val project = kotlinCompilation.target.project
         return project.provider {
             val options = mutableListOf<SubpluginOption>()
-            // Todo: add options
+            // Todo: add option to add to content desc.
 
             options
         }

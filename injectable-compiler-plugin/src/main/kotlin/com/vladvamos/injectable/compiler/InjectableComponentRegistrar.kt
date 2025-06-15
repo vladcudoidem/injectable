@@ -1,11 +1,14 @@
 package com.vladvamos.injectable.compiler
 
+import com.vladvamos.injectable.compiler.ir.InjectableIrGenerationExtension
 import org.jetbrains.kotlin.backend.common.extensions.IrGenerationExtension
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
 import org.jetbrains.kotlin.compiler.plugin.CompilerPluginRegistrar
 import org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi
 import org.jetbrains.kotlin.config.CommonConfigurationKeys
 import org.jetbrains.kotlin.config.CompilerConfiguration
+
+// Todo: use AutoService
 
 @OptIn(ExperimentalCompilerApi::class)
 class InjectableComponentRegistrar : CompilerPluginRegistrar() {

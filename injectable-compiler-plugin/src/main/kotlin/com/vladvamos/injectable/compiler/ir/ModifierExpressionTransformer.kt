@@ -1,4 +1,4 @@
-package com.vladvamos.injectable.compiler
+package com.vladvamos.injectable.compiler.ir
 
 import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.cli.common.messages.CompilerMessageLocation
@@ -72,7 +72,7 @@ class ModifierExpressionTransformer(
 
         val indexToUpdatedModifierArgumentMap =
             indexToModifierArgumentMap.mapValues { (_, argument) ->
-                reportWarning(expression.startOffset) { "Extending Modifier expression." }
+                reportDebug(expression.startOffset) { "Extending Modifier expression." }
 
                 extendModifierArgument(
                     parent = expression,
@@ -198,10 +198,10 @@ class ModifierExpressionTransformer(
     }
 
     // Used for debugging.
-    private fun reportWarning(startOffset: Int, message: () -> String) {
+    private fun reportDebug(startOffset: Int, message: () -> String) {
         messageCollector.report(
             severity = CompilerMessageSeverity.WARNING,
-            message = message(),
+            message = "Debug: ${message()}",
             location =
                 CompilerMessageLocation.create(
                     path = currentFile.path,

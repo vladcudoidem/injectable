@@ -47,16 +47,18 @@ dependencies {
 
 ## 🏭 How does it work?
 
-For every composable function call, the compiler plugin creates a `FunctionCall` object that contains the semantic
-information. That is then injected into the composable's `Modifier` using the `Modifier.registerCall(FunctionCall)`
-extension (the extension function call is added to the end of the `Modifier` parameter expression). Inside the
-`Modifier`, the `FunctionCall` is stored in a `CallStack`, which is a type alias for `List<FunctionCall>`.
+- For every composable function call, the compiler plugin creates a `FunctionCall` object that contains the semantic
+information.
+- This object is then injected into the composable’s `Modifier` using the `registerCall(FunctionCall)`
+extension function. The extension function call is added to the end of the `Modifier` parameter expression.
+- Inside the `Modifier`, the `FunctionCall` is stored in a `CallStack`, which is a type alias for `List<FunctionCall>`.
 Nested composables often share the same `Modifier` object, which leads to UI elements that have multiple `FunctionCall`s
-assigned to them. Lastly, when the `Modifier` object is evaluated, the `CallStack` is added to the custom
-`composableCallStack` semantics property. This exposes the `CallStack` to testing APIs and debugging tools.
+assigned to them.
+- When the `Modifier` object is evaluated, the `CallStack` is added to the custom `composableCallStack` semantics
+property. This exposes the `CallStack` to testing APIs and debugging tools.
 
-Thus, the functionality of this tool totally depends on Compose's `Modifier` parameters. They are the basis on which the
-semantic information is stored, transferred and later retrieved.
+Thus, the functionality of this tool totally depends on Compose’s `Modifier` parameters, which are the basis on which
+the semantic information is stored, transferred, and later retrieved.
 
 ## ⚽ Example usage
 
@@ -64,7 +66,7 @@ This tool can be used for a lot of purposes. Some are more interesting than the 
 
 ### Better reporting in UI tests
 
-Some UI tests verify certain properties of UI elements (e.g., text, content description or position on the screen).
+Some UI tests verify certain properties of UI elements (e.g., text, content description, or position on the screen).
 If a UI element does not match the expectations, the test usually logs a message or throws an error. The error log or
 message has to correctly describe the problematic element, which is sometimes complicated, because only identifiers such
 as the test tag, displayed text or the index in a list are known. _Injectable_ can be used to enhance the error messages

@@ -3,8 +3,6 @@ package com.vladvamos.injectable.representation
 import com.vladvamos.injectable.representation.interfaces.Locatable
 import com.vladvamos.injectable.representation.interfaces.Named
 
-// Todo: add KDocs
-
 public class Function(
     override val fqName: String,
     public val annotations: List<Annotation>,

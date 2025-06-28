@@ -4,6 +4,15 @@ import android.annotation.SuppressLint
 import androidx.compose.ui.Modifier
 import com.vladvamos.injectable.representation.FunctionCall
 
+// Todo: require opt-in for usage
+
+/**
+ * Adds the [call] to the [com.vladvamos.injectable.representation.CallStack] of this Modifier
+ * chain.
+ *
+ * The *injectable* compiler plugin internally uses it to inject semantic information into
+ * composables. It is **not** advised to call this extension directly.
+ */
 public fun Modifier.registerCall(call: FunctionCall): Modifier {
     val lastCallStackModifier = getLastCallStackModifier()
     val existsCallStackModifier = lastCallStackModifier != null

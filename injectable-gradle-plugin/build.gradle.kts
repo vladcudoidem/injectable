@@ -4,6 +4,7 @@ plugins {
     `maven-publish`
     id("formatting-convention")
     alias(libs.plugins.buildConfig)
+    id("publishing-convention")
 }
 
 // Gradle plugin version
@@ -25,7 +26,16 @@ gradlePlugin {
     }
 }
 
-publishing { repositories { mavenLocal() } }
+mavenPublishing {
+    coordinates(group.toString(), "injectable-gradle-plugin", version.toString())
+
+    pom {
+        name = "Injectable Gradle plugin"
+        description =
+            "Sets up the project for using the Injectable Kotlin compiler plugin."
+        inceptionYear = "2025"
+    }
+}
 
 buildConfig {
     packageName(project.group.toString())

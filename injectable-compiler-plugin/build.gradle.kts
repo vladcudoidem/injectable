@@ -3,6 +3,7 @@ plugins {
     `maven-publish`
     id("formatting-convention")
     id("com.github.gmazzo.buildconfig")
+    id("publishing-convention")
 }
 
 // Kotlin compiler plugin version
@@ -16,10 +17,15 @@ dependencies {
     testImplementation(libs.tschuchortdev.kotlinCompileTesting)
 }
 
-publishing {
-    publications { create<MavenPublication>("maven") { from(components["java"]) } }
+mavenPublishing {
+    coordinates(group.toString(), "injectable-compiler-plugin", version.toString())
 
-    repositories { mavenLocal() }
+    pom {
+        name = "Injectable Kotlin compiler plugin"
+        description =
+            "Automatically injects semantic information into Jetpack Compose composables."
+        inceptionYear = "2025"
+    }
 }
 
 buildConfig {

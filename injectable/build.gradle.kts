@@ -1,6 +1,7 @@
 plugins {
     id("formatting-convention")
     id("android-convention")
+    id("publishing-convention")
 }
 
 // Library version
@@ -15,6 +16,17 @@ android {
             res.srcDirs("src/integrationTest/res")
             manifest.srcFile("src/integrationTest/AndroidManifest.xml")
         }
+    }
+}
+
+mavenPublishing {
+    coordinates(group.toString(), "injectable", version.toString())
+
+    pom {
+        name = "Injectable library"
+        description =
+            "Defines the core functionality for the Injectable Kotlin compiler plugin."
+        inceptionYear = "2025"
     }
 }
 

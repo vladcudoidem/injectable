@@ -1,7 +1,6 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    `maven-publish`
 }
 
 android {
@@ -19,18 +18,10 @@ android {
 
     kotlinOptions { jvmTarget = "19" }
 
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-            withJavadocJar()
-        }
-    }
-}
-
-afterEvaluate {
-    publishing {
-        publications { create<MavenPublication>("release") { from(components["release"]) } }
-
-        repositories { mavenLocal() }
-    }
+//    publishing {
+//        singleVariant("release") {
+//            withSourcesJar()
+//            withJavadocJar()
+//        }
+//    }
 }

@@ -31,8 +31,7 @@ mavenPublishing {
 
     pom {
         name = "Injectable Gradle plugin"
-        description =
-            "Sets up the project for using the Injectable Kotlin compiler plugin."
+        description = "Sets up the project for using the Injectable Kotlin compiler plugin."
         inceptionYear = "2025"
     }
 }

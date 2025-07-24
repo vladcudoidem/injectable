@@ -22,8 +22,7 @@ mavenPublishing {
 
     pom {
         name = "Injectable Kotlin compiler plugin"
-        description =
-            "Automatically injects semantic information into Jetpack Compose composables."
+        description = "Automatically injects semantic information into Jetpack Compose composables."
         inceptionYear = "2025"
     }
 }

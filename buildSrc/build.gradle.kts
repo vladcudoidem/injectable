@@ -9,6 +9,7 @@ dependencies {
     implementation(libs.plugins.spotless.asModuleDependency("-plugin-gradle", true))
     implementation(libs.plugins.androidGradle.asModuleDependency(".gradle.plugin"))
     implementation(libs.plugins.kotlinAndroid.asModuleDependency(".gradle.plugin"))
+    implementation(libs.plugins.vanniktechMaven.asModuleDependency(".gradle.plugin"))
 }
 
 // Converts a plugin dependency to a module dependency.

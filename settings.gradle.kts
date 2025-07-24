@@ -1,12 +1,3 @@
-dependencyResolutionManagement {
-    @Suppress("UnstableApiUsage")
-    repositories {
-        mavenCentral()
-        gradlePluginPortal()
-        google()
-    }
-}
-
 pluginManagement {
     repositories {
         mavenCentral()

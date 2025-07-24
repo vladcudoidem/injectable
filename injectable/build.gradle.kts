@@ -24,8 +24,7 @@ mavenPublishing {
 
     pom {
         name = "Injectable library"
-        description =
-            "Defines the core functionality for the Injectable Kotlin compiler plugin."
+        description = "Defines the core functionality for the Injectable Kotlin compiler plugin."
         inceptionYear = "2025"
     }
 }

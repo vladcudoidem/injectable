@@ -102,7 +102,7 @@ class MainPageTitleTest {
 ## UI test that verifies test tags
 
 This is a Compose UI test that runs on an emulator. It starts the `MainActivity` and parses the displayed UI nodes to
-check for test tags. A composable's need for a test tag is marked by the `@RequireTestTag` annotation. The test
+check for test tags. A composable's need for a test tag is marked by the `@NeedsTestTag` annotation. The test
 fails if it detects an element that needs a test tag but did not receive one.
 
 ```kotlin
@@ -116,12 +116,12 @@ class TestTagTest {
         rule.onAllNodesWithCallStack { node, callStack ->
             val annotationNames = callStack.annotations.map { it.simpleName }
             
-            // @RequiresTestTag is a user-defined annotation that signals that the need
-            // for a test tag.
-            val requiresTestTag = "RequiresTestTag" in annotationNames
+            // @NeedsTestTag is a user-defined annotation that signals the need for a
+            // test tag.
+            val needsTestTag = "NeedsTestTag" in annotationNames
             val hasTestTag = node.config.getOrNull(SemanticsProperties.TestTag) != null
             
-            if (requiresTestTag && !hasTestTag) {
+            if (needsTestTag && !hasTestTag) {
                 val firstCall = callStack.first()
                 val composableName = firstCall.function.simpleName
                 val callLocationString = firstCall.buildCallSiteLink()
